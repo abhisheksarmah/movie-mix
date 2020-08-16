@@ -1,11 +1,15 @@
 <template>
-  <div class="about">
+  <div class="details" v-if="!loading">
     <div class="movie-info border-b border-gray-800">
       <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
-        <img src="../assets/parasite.jpg" alt="" class="w-96" />
+        <img
+          :src="show.image.medium || show.image.original"
+          alt=""
+          class="w-96"
+        />
         <div class="md:ml-24">
-          <h2 class="text-4xl font-semibo">Parasite (2019)</h2>
-          <div class="flex flex-wrap items-center text-gray-400 text-sm mt-1">
+          <h2 class="text-4xl font-semibo">{{ show.name }}</h2>
+          <div class="flex items-center text-gray-400 text-sm mt-1">
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -24,38 +28,18 @@
                 ></path>
               </svg>
             </span>
-            <span class="ml-1">85%</span>
+            <span class="ml-1">{{ show.rating.average }}</span>
             <span class="mx-2">|</span>
-            <span>Feb 20, 2020</span>
+            <span>{{ show.premiered }}</span>
             <span class="mx-2">|</span>
-            <span>Action, Thriller, Comedy</span>
+            <span>{{ show.genres.join(", ") }}</span>
           </div>
-          <p class="text-gray-300 mt-8">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aspernatur
-            necessitatibus accusamus consectetur, praesentium modi alias,
-            quibusdam eaque quos dicta vitae accusantium unde, omnis cumque odit
-            similique. Voluptatem vel corporis ullam? Accusantium omnis
-            veritatis enim eos ipsam quaerat, sit quas modi. Modi sequi placeat
-            fugit labore dignissimos officia provident porro qui! Esse nihil
-            vero commodi deserunt laboriosam harum illum maiores totam
-            perferendis, porro voluptas quae, iusto libero tempore voluptate
-          </p>
-          <div class="mt-12">
-            <h4 class="text-white font-semibold">Featured Cast</h4>
-            <div class="flex mt-4">
-              <div>
-                <div>Bong Joon ho</div>
-                <div class="text-sm text-gray-400">
-                  Screenplay, Director, Story
-                </div>
-              </div>
-              <div class="ml-8">
-                <div>Han jin ho</div>
-                <div class="text-sm text-gray-400">
-                  Screenplay
-                </div>
-              </div>
-            </div>
+          <div>
+            <p
+              class="text-gray-300 mt-8"
+              v-html="show.summary"
+              style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;"
+            ></p>
           </div>
           <div class="mt-12">
             <button
@@ -101,20 +85,22 @@
           <div
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"
           >
-            <div class="mt-8" v-for="card in [1, 2, 3, 4, 5]" :key="card">
-              <a href="#">
+            <div class="mt-8" v-for="(cast, index) in casts" :key="index">
+              <a :href="cast.character.url">
                 <img
-                  src="../assets/actor1.jpg"
+                  :src="cast.person.image.medium || cast.person.image.original"
                   alt=""
                   class="hover:opacity-75 text-sm transition ease-in-out duration-150"
                 />
               </a>
               <div class="mt-2">
-                <a href="#" class="text-lg mt-2 hover:text-gray-300"
-                  >Parasite
+                <a
+                  :href="cast.character.url"
+                  class="text-lg mt-2 hover:text-gray-300"
+                  >{{ cast.person.name }}
                 </a>
                 <div class="text-gray-400 text-sm">
-                  Action, Thriller, Comedy
+                  as {{ cast.character.name }}
                 </div>
               </div>
             </div>
@@ -129,14 +115,15 @@
             Images
           </h2>
           <div
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8"
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"
           >
-            <div class="mt-8" v-for="card in [1, 2, 3, 4, 5, 6]" :key="card">
+            <div class="mt-8" v-for="image in images" :key="image.id">
               <a href="#">
                 <img
-                  src="../assets/image1.jpg"
+                  :src="image.url"
                   alt=""
-                  class="hover:opacity-75 text-sm transition ease-in-out duration-150"
+                  class="hover:opacity-75 text-sm transition ease-in-out
+                duration-150"
                 />
               </a>
             </div>
@@ -146,3 +133,40 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      casts: [],
+      images: [],
+      show: {},
+      loading: true,
+    };
+  },
+  mounted() {},
+  created() {
+    let urls = [
+      `http://api.tvmaze.com/shows/${this.$route.params.id}`,
+      `http://api.tvmaze.com/shows/${this.$route.params.id}/cast`,
+      `http://api.tvmaze.com/shows/${this.$route.params.id}/images`,
+    ];
+    this.loading = true;
+    Promise.all(urls.map((url) => fetch(url)))
+      .then((resp) => Promise.all(resp.map((r) => r.json())))
+      .then((result) => {
+        this.loading = false;
+        this.show = result[0];
+        this.casts = result[1];
+        this.images = result[2]
+          .filter((image) => image.type == "poster")
+          .map((image) => {
+            return {
+              id: image.id,
+              ...(image.resolutions.medium || image.resolutions.original),
+            };
+          });
+      });
+  },
+};
+</script>
