@@ -31,7 +31,7 @@
 				</h2>
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
 					<show-card
-						v-for="show in genre.shows.slice(-10)"
+						v-for="show in genre.shows"
 						:key="show.id"
 						:show="show"
 					></show-card>
@@ -64,7 +64,10 @@ export default {
 		getAllShows().then(({ data }) => {
 			this.loading = false;
 			this.shows = data;
-			this.populars = this.shows.slice(-10);
+			this.populars = this.shows
+				.filter((show) => !show.rating.avarage)
+				.sort((a, b) => (a.rating.average < b.rating.average ? 1 : -1))
+				.slice(-10);
 		});
 	},
 	computed: {
@@ -77,9 +80,12 @@ export default {
 			return this.genreTitles.map((genre) => {
 				return {
 					name: genre,
-					shows: this.shows.filter((show) =>
-						show.genres.includes(genre)
-					),
+					shows: this.shows
+						.filter((show) => show.genres.includes(genre))
+						.sort((a, b) =>
+							a.rating.average < b.rating.average ? 1 : -1
+						)
+						.slice(-10),
 				};
 			});
 		},

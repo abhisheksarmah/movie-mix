@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URL = 'http://api.tvmaze.com/'
+const URL = 'https://api.tvmaze.com/'
 
 export function getAllShows() {
     return axios.get(URL + 'shows');
