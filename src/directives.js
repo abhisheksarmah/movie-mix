@@ -1,6 +1,4 @@
 import Vue from 'vue'
-Vue.directive('closable', closable)
-
 // This variable will hold the reference to
 // document's click handler
 let handleOutsideClick
@@ -52,3 +50,5 @@ export const closable = {
         document.removeEventListener('touchstart', handleOutsideClick)
     }
 }
+
+Vue.directive('closable', closable)

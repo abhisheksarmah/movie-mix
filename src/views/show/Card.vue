@@ -5,8 +5,9 @@
         params: { id: show.id },
       }">
 			<img
-				:src="show.image.medium"
-				alt=""
+				v-if="show.image"
+				:src="show.image.medium || show.image.original"
+				:alt="show.name"
 				class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-image"
 			/>
 		</router-link>

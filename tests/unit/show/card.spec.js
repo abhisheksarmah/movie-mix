@@ -61,7 +61,7 @@ describe('ShowCard.vue', () => {
     })
     it('renders show image', () => {
         expect(wrapper.find('.show-image').exists()).toBe(true)
-        expect(wrapper.find('.show-image').html()).toBe(`<img src="${show.image.medium}" alt="" class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-image">`)
+        expect(wrapper.find('.show-image').html()).toBe(`<img src="${show.image.medium||show.image.original}" alt="${show.name}" class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-image">`)
     })
     it('display show average', () => {
         expect(wrapper.find('.show-average').exists()).toBe(true)

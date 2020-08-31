@@ -42,12 +42,18 @@ describe("Home.vue", () => {
               url: "http://www.tvmaze.com/shows/240/cops",
               name: "Cops",
               genres: ["Action", "Drama"],
+              rating: {
+                average: 7.8
+              }
             },
             {
               id: 241,
               url: "http://www.tvmaze.com/shows/241/benched",
               name: "Benched",
               genres: ["Thriller", "Comedy"],
+              rating: {
+                average: 8.1
+              }
             },
           ],
         })
@@ -64,12 +70,21 @@ describe("Home.vue", () => {
     wrapper.setData({
       shows: [{
           genres: ["Action", "Drama"],
+          rating: {
+            average: 8.1
+          }
         },
         {
           genres: ["Thriller", "Comedy"],
+          rating: {
+            average: 7
+          }
         },
         {
           genres: ["Action", "Cartoon"],
+          rating: {
+            average: 6.5
+          }
         },
       ],
     });
@@ -87,10 +102,16 @@ describe("Home.vue", () => {
       shows: [{
           id: 1,
           genres: ["Action", "Drama"],
+          rating: {
+            average: 8.1
+          }
         },
         {
           id: 2,
           genres: ["Thriller", "Action"],
+          rating: {
+            average: 7
+          }
         },
       ],
     });
@@ -99,10 +120,16 @@ describe("Home.vue", () => {
         shows: [{
             genres: ["Action", "Drama"],
             id: 1,
+            rating: {
+              average: 8.1
+            }
           },
           {
             genres: ["Thriller", "Action"],
             id: 2,
+            rating: {
+              average: 7
+            }
           },
         ],
       },
@@ -111,6 +138,9 @@ describe("Home.vue", () => {
         shows: [{
           genres: ["Action", "Drama"],
           id: 1,
+          rating: {
+            average: 8.1
+          }
         }, ],
       },
       {
@@ -118,6 +148,9 @@ describe("Home.vue", () => {
         shows: [{
           genres: ["Thriller", "Action"],
           id: 2,
+          rating: {
+            average: 7
+          }
         }, ],
       },
     ]);
