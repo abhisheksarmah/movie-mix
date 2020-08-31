@@ -9,44 +9,12 @@
 							class="flex items-center"
 						>
 							<icon name="logo" />
-							<span class="text-2xl font-bold ml-3">TV App</span>
+							<span class="text-2xl font-semibold ml-3 tracking-wider">Movie Mix</span>
 						</router-link>
-					</li>
-					<li class="md:ml-16 mt-3 md:mt-0">
-						<a
-							href="#"
-							class="hover:text-gray-300"
-						>Movies</a>
-					</li>
-					<li class="md:ml-6 mt-3 md:mt-0">
-						<a
-							href="#"
-							class="hover:text-gray-300"
-						>TV shows</a>
-					</li>
-					<li class="md:ml-6 mt-3 md:mt-0">
-						<a
-							href="#"
-							class="hover:text-gray-300"
-						>Actors</a>
 					</li>
 				</ul>
 				<div class="flex flex-col md:flex-row items-center">
-					<div class="relative mt-3 md:mt-0">
-						<input
-							type="text"
-							class="bg-gray-800 rounded-full w-64 px-4 pl-8 py-2 focus:outline-none focus:shadow-outline"
-							placeholder="Search"
-						/>
-						<div class="absolute top-0">
-							<span class="text-gray-500">
-								<icon
-									name="search"
-									class="mt-3 ml-3"
-								/>
-							</span>
-						</div>
-					</div>
+					<search />
 					<div class="md:ml-4 mt-3 md:mt-0">
 						<a href="#">
 							<img
@@ -65,11 +33,13 @@
 
 <script>
 import Icon from "@/components/Icon";
+import Search from "@/views/Search";
 
 export default {
 	name: "App",
 	components: {
 		Icon,
+		Search,
 	},
 };
 </script>

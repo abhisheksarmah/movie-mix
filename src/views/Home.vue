@@ -5,17 +5,21 @@
 				<h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
 					Popular Movies
 				</h2>
-				<div
-					class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 popular-movies"
-					v-if="!loading"
-				>
-					<show-card
-						v-for="show in populars"
-						:key="show.id"
-						:show="show"
-					></show-card>
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 popular-movies">
+					<template v-if="!loading">
+						<show-card
+							v-for="show in populars"
+							:key="show.id"
+							:show="show"
+						></show-card>
+					</template>
+					<template v-else>
+						<placeholder
+							v-for="i in 10"
+							:key="i"
+						/>
+					</template>
 				</div>
-				<div v-else>Loading...</div>
 			</div>
 			<div
 				class="genres pb-16"
@@ -39,12 +43,14 @@
 
 <script>
 import ShowCard from "@/views/show/Card";
-import axios from "axios";
+import Placeholder from "@/views/show/Placeholder";
+import { getAllShows } from "@/api";
 
 export default {
 	name: "Home",
 	components: {
 		ShowCard,
+		Placeholder,
 	},
 	data() {
 		return {
@@ -55,7 +61,7 @@ export default {
 	},
 	mounted() {
 		this.loading = true;
-		axios("http://api.tvmaze.com/shows").then(({ data }) => {
+		getAllShows().then(({ data }) => {
 			this.loading = false;
 			this.shows = data;
 			this.populars = this.shows.slice(-10);

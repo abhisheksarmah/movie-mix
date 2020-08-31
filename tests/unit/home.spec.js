@@ -1,11 +1,13 @@
-import { shallowMount } from "@vue/test-utils";
+import {
+  shallowMount
+} from "@vue/test-utils";
 import moxios from "moxios";
 import Home from "@/views/Home.vue";
 
 describe("Home.vue", () => {
   let wrapper;
 
-  beforeEach(function() {
+  beforeEach(function () {
     // import and pass your custom axios instance to this method
     moxios.install();
 
@@ -14,7 +16,7 @@ describe("Home.vue", () => {
     });
   });
 
-  afterEach(function() {
+  afterEach(function () {
     // import and pass your custom axios instance to this method
     moxios.uninstall();
   });
@@ -30,13 +32,12 @@ describe("Home.vue", () => {
     expect(wrapper.vm.populars.length).toBe(0);
     expect(wrapper.vm.loading).toBe(true);
 
-    moxios.wait(function() {
+    moxios.wait(function () {
       let request = moxios.requests.mostRecent();
       request
         .respondWith({
           status: 200,
-          response: [
-            {
+          response: [{
               id: 240,
               url: "http://www.tvmaze.com/shows/240/cops",
               name: "Cops",
@@ -50,7 +51,7 @@ describe("Home.vue", () => {
             },
           ],
         })
-        .then(function() {
+        .then(function () {
           expect(wrapper.vm.shows.length).toBe(2);
           expect(wrapper.vm.populars.length).toBe(2);
           expect(wrapper.vm.loading).toBe(false);
@@ -61,8 +62,7 @@ describe("Home.vue", () => {
 
   it("compute genre titles", () => {
     wrapper.setData({
-      shows: [
-        {
+      shows: [{
           genres: ["Action", "Drama"],
         },
         {
@@ -84,8 +84,7 @@ describe("Home.vue", () => {
 
   it("compute genres", () => {
     wrapper.setData({
-      shows: [
-        {
+      shows: [{
           id: 1,
           genres: ["Action", "Drama"],
         },
@@ -95,11 +94,9 @@ describe("Home.vue", () => {
         },
       ],
     });
-    expect(wrapper.vm.genres).toStrictEqual([
-      {
+    expect(wrapper.vm.genres).toStrictEqual([{
         name: "Action",
-        shows: [
-          {
+        shows: [{
             genres: ["Action", "Drama"],
             id: 1,
           },
@@ -111,32 +108,18 @@ describe("Home.vue", () => {
       },
       {
         name: "Drama",
-        shows: [
-          {
-            genres: ["Action", "Drama"],
-            id: 1,
-          },
-        ],
+        shows: [{
+          genres: ["Action", "Drama"],
+          id: 1,
+        }, ],
       },
       {
         name: "Thriller",
-        shows: [
-          {
-            genres: ["Thriller", "Action"],
-            id: 2,
-          },
-        ],
+        shows: [{
+          genres: ["Thriller", "Action"],
+          id: 2,
+        }, ],
       },
     ]);
   });
-
-  let see = (text, selector) => {
-    let wrap = selector ? wrapper.find(selector) : wrapper;
-    expect(wrap.html()).toContain(text);
-  };
-
-  let notSee = (text, selector) => {
-    let wrap = selector ? wrapper.find(selector) : wrapper;
-    expect(wrap.html()).not.toContain(text);
-  };
 });
