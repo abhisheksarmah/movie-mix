@@ -8,7 +8,7 @@
 				v-if="show.image"
 				:src="show.image.medium || show.image.original"
 				:alt="show.name"
-				class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-image"
+				class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-image w-full"
 			/>
 		</router-link>
 		<div class="mt-2">

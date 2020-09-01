@@ -51,7 +51,7 @@ describe('ShowCast.vue', () => {
     })
     it('renders cast character image', () => {
         expect(wrapper.find('.cast-character-image').exists()).toBe(true)
-        expect(wrapper.find('.cast-character-image').html()).toBe(`<img src="${cast.character.image.medium || cast.character.image.original}" alt="${cast.character.name}" class="hover:opacity-75 text-sm transition ease-in-out duration-150 cast-character-image">`)
+        expect(wrapper.find('.cast-character-image').html()).toBe(`<img src="${cast.character.image.medium || cast.character.image.original}" alt="${cast.character.name}" class="hover:opacity-75 text-sm transition ease-in-out duration-150 cast-character-image w-full">`)
     })
     it('display cast person name', () => {
         expect(wrapper.find('.cast-person-name').exists()).toBe(true)

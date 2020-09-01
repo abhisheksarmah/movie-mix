@@ -8,14 +8,14 @@
 				<img
 					:src="cast.character.image.medium || cast.character.image.original"
 					:alt="cast.character.name"
-					class="hover:opacity-75 text-sm transition ease-in-out duration-150 cast-character-image"
+					class="hover:opacity-75 text-sm transition ease-in-out duration-150 cast-character-image w-full"
 				/>
 			</template>
 			<template v-else-if="cast.person.image">
 				<img
 					:src="cast.person.image.medium || cast.person.image.original"
 					:alt="cast.person.name"
-					class="hover:opacity-75 text-sm transition ease-in-out duration-150 cast-character-image"
+					class="hover:opacity-75 text-sm transition ease-in-out duration-150 cast-character-image w-full"
 				/>
 			</template>
 			<template v-else>

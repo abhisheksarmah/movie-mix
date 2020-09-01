@@ -16,6 +16,6 @@ describe('ShowImage.vue', () => {
     })
     it('renders image', () => {
         expect(wrapper.find('.show-images').exists()).toBe(true)
-        expect(wrapper.find('.show-images').html()).toBe(`<img src="${image.url}" alt="${image.id}" class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-images">`)
+        expect(wrapper.find('.show-images').html()).toBe(`<img src="${image.url}" alt="${image.id}" class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-images w-full">`)
     })
 })

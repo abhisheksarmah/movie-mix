@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col md:flex-row">
-		<div class="w-96 flex-none">
+		<div class="sm:w-64 md:w-64 lg:w-96 flex-none">
 			<img
 				:src="show.image.medium || show.image.original"
 				:alt="show.name"
@@ -9,7 +9,7 @@
 		</div>
 		<div class="md:ml-24">
 			<h2 class="text-4xl font-semibold show-name">{{ show.name }}</h2>
-			<div class="flex items-center text-gray-400 text-sm mt-1">
+			<div class="flex items-center text-gray-400 text-sm mt-1 flex-wrap">
 				<span class="text-orange-500">
 					<icon name="star" />
 				</span>
