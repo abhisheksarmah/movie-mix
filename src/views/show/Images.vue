@@ -7,7 +7,7 @@
 			<img
 				:src="image.url"
 				:alt="image.id"
-				class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-images"
+				class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-images w-full"
 			/>
 		</a>
 	</div>
