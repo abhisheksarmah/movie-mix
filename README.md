@@ -2,6 +2,14 @@
 
 Movie MIX is an online collection of tv shows.
 
+<p align="center">
+  <a href="https://movie-mix.netlify.app/" target="_blank">
+    <img src="./src/assets/preview.png" width="700px">
+    <br>
+    Live Demo
+  </a>
+</p>
+
 ### Why VueJS?
 
 - Very less in size and easy to learn.
