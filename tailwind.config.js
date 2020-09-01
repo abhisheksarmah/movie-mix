@@ -1,8 +1,13 @@
 module.exports = {
-  purge: [
-    './src/**/*.html',
-    './src/**/*.vue',
-  ],
+  purge: {
+    content: [
+      './src/**/*.html',
+      './src/**/*.vue',
+    ],
+    options: {
+      whitelist: ['font-sans', 'bg-gray-900', 'text-white', 'antialiased'],
+    }
+  },
   theme: {
     extend: {
       width: {
