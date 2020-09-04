@@ -7,6 +7,9 @@ import Search from "@/views/Search.vue";
 import {
     closable
 } from "@/directives";
+import {
+    searchShows
+} from './testing-data'
 
 const localVue = createLocalVue();
 localVue.directive("closable", closable);
@@ -41,25 +44,7 @@ describe("Search.vue", () => {
             request
                 .respondWith({
                     status: 200,
-                    response: [{
-                            score: 99,
-                            show: {
-                                id: 240,
-                                url: "http://www.tvmaze.com/shows/240/cops",
-                                name: "Cops",
-                                genres: ["Action", "Drama"],
-                            },
-                        },
-                        {
-                            score: 98,
-                            show: {
-                                id: 241,
-                                url: "http://www.tvmaze.com/shows/241/benched",
-                                name: "Benched",
-                                genres: ["Thriller", "Comedy"],
-                            },
-                        },
-                    ],
+                    response: searchShows,
                 })
                 .then(function () {
                     expect(wrapper.vm.shows.length).toBe(2);
