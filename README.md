@@ -10,6 +10,12 @@ Movie MIX is an online collection of tv shows.
   </a>
 </p>
 
+<p align="center"> 
+    <img src="./src/assets/test-coverage.png" width="700px">
+    <br>
+    Test Coverage
+</p>
+
 ## Project Dependency
 
 - VueJS
