@@ -10,6 +10,14 @@ Movie MIX is an online collection of tv shows.
   </a>
 </p>
 
+## Project Dependency
+
+- VueJS
+- Vue Router
+- Axios
+- Tailwindcss
+- Lodash
+
 ### Why VueJS?
 
 - Very less in size and easy to learn.
