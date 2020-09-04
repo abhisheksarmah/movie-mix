@@ -155,4 +155,46 @@ describe("Home.vue", () => {
       },
     ]);
   });
+
+  it('return mostly rated shows based on ratings', () => {
+    let data = [{
+        id: 1,
+        genres: ["Action", "Drama"],
+        rating: {
+          average: 7
+        }
+      },
+      {
+        id: 2,
+        genres: ["Thriller", "Action"],
+        rating: {
+          average: 8.1
+        }
+      },
+      {
+        id: 3,
+        genres: ["Thriller", "Action"],
+        rating: {
+          average: null
+        }
+      }
+    ]
+    let sorted = wrapper.vm.mostlyRatedShows(data)
+
+    expect(sorted).toStrictEqual([{
+        id: 2,
+        genres: ['Thriller', 'Action'],
+        rating: {
+          average: 8.1
+        }
+      },
+      {
+        id: 1,
+        genres: ['Action', 'Drama'],
+        rating: {
+          average: 7
+        }
+      }
+    ])
+  })
 });

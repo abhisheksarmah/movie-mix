@@ -12,7 +12,7 @@ const localVue = createLocalVue();
 localVue.directive("closable", closable);
 
 describe("Search.vue", () => {
-    let wrapper, clock;
+    let wrapper;
 
     beforeEach(function () {
         // import and pass your custom axios instance to this method

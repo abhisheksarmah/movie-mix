@@ -33,6 +33,14 @@ describe("ShowDetails.vue", () => {
         moxios.uninstall();
     });
 
+    it('should trigger a beforeRouteUpdate event', function () {
+        const beforeRouteUpdate = wrapper.vm.$options.beforeRouteUpdate[0];
+        let nextFun = jest.fn();
+        beforeRouteUpdate.call(wrapper.vm, {
+            params: 123
+        }, "fromObj", nextFun);
+    });
+
     it('mounted assigns show, casts, images, loading', () => {
         expect(wrapper.vm.show).not.toBe(undefined)
         expect(wrapper.vm.casts).not.toBe(undefined)
@@ -211,4 +219,23 @@ describe("ShowDetails.vue", () => {
                 });
         });
     });
+
+    test('return original if no medium image', () => {
+        let data = [{
+            id: 310921,
+            type: "poster",
+            main: false,
+            resolutions: {
+                original: {
+                    url: "http://static.tvmaze.com/uploads/images/original_untouched/125/313193.jpg",
+                },
+                medium: null,
+            },
+        }]
+        let formatted = wrapper.vm.formatImages(data)
+        expect(formatted).toStrictEqual([{
+            id: 310921,
+            url: 'http://static.tvmaze.com/uploads/images/original_untouched/125/313193.jpg'
+        }])
+    })
 });
