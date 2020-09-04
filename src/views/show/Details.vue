@@ -3,8 +3,16 @@
 		class="details"
 		v-if="!loading"
 	>
+		<div class="container mx-auto px-4 py-16">
+			<button
+				class="p-2 border border-gray-500 text-gray-500 rounded-full shadow-md hover:border-gray-100 hover:text-gray-100"
+				@click="$router.go(-1)"
+			>
+				<icon name="back" />
+			</button>
+		</div>
 		<div class="movie-info border-b border-gray-800">
-			<div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
+			<div class="container mx-auto px-4 pb-16 flex flex-col md:flex-row">
 				<show-description :show="show" />
 			</div>
 		</div>
@@ -44,6 +52,7 @@
 </template>
 
 <script>
+import Icon from "@/components/Icon";
 import ShowDescription from "./Description";
 import ShowImage from "./Images";
 import ShowCast from "./Cast";
@@ -52,6 +61,7 @@ import { getShowDetails, getShowCasts, getShowImages } from "@/api";
 export default {
 	name: "ShowDetails",
 	components: {
+		Icon,
 		ShowDescription,
 		ShowImage,
 		ShowCast,

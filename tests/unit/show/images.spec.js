@@ -2,12 +2,11 @@ import {
     shallowMount
 } from '@vue/test-utils';
 import ShowImage from "@/views/show/Images.vue"
-
+import {
+    showFormattedImageData
+} from '../testing-data'
 describe('ShowImage.vue', () => {
-    const image = {
-        "id": 3601,
-        "url": "http://static.tvmaze.com/uploads/images/medium_portrait/1/3603.jpg"
-    }
+    const image = showFormattedImageData[0]
     const wrapper = shallowMount(ShowImage, {
         propsData: {
             image

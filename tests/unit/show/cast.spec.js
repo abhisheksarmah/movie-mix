@@ -2,48 +2,12 @@ import {
     shallowMount
 } from '@vue/test-utils';
 import ShowCast from "@/views/show/Cast.vue"
+import {
+    showCast
+} from '../testing-data'
 
 describe('ShowCast.vue', () => {
-    const cast = {
-        "person": {
-            "id": 35596,
-            "url": "http://www.tvmaze.com/people/35596/justin-roiland",
-            "name": "Justin Roiland",
-            "country": {
-                "name": "United States",
-                "code": "US",
-                "timezone": "America/New_York"
-            },
-            "birthday": "1980-02-21",
-            "deathday": null,
-            "gender": "Male",
-            "image": {
-                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/1/3602.jpg",
-                "original": "http://static.tvmaze.com/uploads/images/original_untouched/1/3602.jpg"
-            },
-            "_links": {
-                "self": {
-                    "href": "http://api.tvmaze.com/people/35596"
-                }
-            }
-        },
-        "character": {
-            "id": 56241,
-            "url": "http://www.tvmaze.com/characters/56241/rick-and-morty-rick-sanchez",
-            "name": "Rick Sanchez",
-            "image": {
-                "medium": "http://static.tvmaze.com/uploads/images/medium_portrait/105/262781.jpg",
-                "original": "http://static.tvmaze.com/uploads/images/original_untouched/105/262781.jpg"
-            },
-            "_links": {
-                "self": {
-                    "href": "http://api.tvmaze.com/characters/56241"
-                }
-            }
-        },
-        "self": false,
-        "voice": true
-    }
+    const cast = showCast
     const wrapper = shallowMount(ShowCast, {
         propsData: {
             cast
