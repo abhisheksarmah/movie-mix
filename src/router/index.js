@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import ShowDetails from '../views/show/Details.vue'
+const Home = () => import('../views/Home.vue')
+const ShowDetails = () => import('../views/show/Details.vue')
+const PageNotFound = () => import('../views/PageNotFound.vue')
 
 Vue.use(VueRouter)
 
@@ -15,7 +16,11 @@ export const routes = [{
     name: 'ShowDetails',
     props: true,
     component: ShowDetails
-    // component: () => import( /* webpackChunkName: "show-details" */ '../views/show/Details.vue')
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    component: PageNotFound
   }
 ]
 

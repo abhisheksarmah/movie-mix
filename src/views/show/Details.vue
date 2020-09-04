@@ -72,6 +72,18 @@ export default {
 		this.showDetails(this.$route.params.id);
 	},
 	methods: {
+		formatImages(data) {
+			return data
+				.filter((image) => image.type == "poster")
+				.map((image) => {
+					let { url } =
+						image.resolutions.medium || image.resolutions.original;
+					return {
+						id: image.id,
+						url,
+					};
+				});
+		},
 		showDetails(showId) {
 			this.loading = true;
 			getShowDetails(showId)
@@ -98,15 +110,7 @@ export default {
 					getShowCasts(showId).then(({ data }) => {
 						this.casts = data;
 						getShowImages(showId).then(({ data }) => {
-							this.images = data
-								.filter((image) => image.type == "poster")
-								.map((image) => {
-									return {
-										id: image.id,
-										...(image.resolutions.medium ||
-											image.resolutions.original),
-									};
-								});
+							this.images = this.formatImages(data);
 						});
 					});
 				})

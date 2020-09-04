@@ -64,10 +64,7 @@ export default {
 		getAllShows().then(({ data }) => {
 			this.loading = false;
 			this.shows = data;
-			this.populars = this.shows
-				.filter((show) => !show.rating.avarage)
-				.sort((a, b) => (a.rating.average < b.rating.average ? 1 : -1))
-				.slice(-10);
+			this.populars = this.mostlyRatedShows(this.shows);
 		});
 	},
 	computed: {
@@ -80,14 +77,19 @@ export default {
 			return this.genreTitles.map((genre) => {
 				return {
 					name: genre,
-					shows: this.shows
-						.filter((show) => show.genres.includes(genre))
-						.sort((a, b) =>
-							a.rating.average < b.rating.average ? 1 : -1
-						)
-						.slice(-10),
+					shows: this.mostlyRatedShows(
+						this.shows.filter((show) => show.genres.includes(genre))
+					),
 				};
 			});
+		},
+	},
+	methods: {
+		mostlyRatedShows(shows) {
+			return shows
+				.filter((show) => show.rating.average)
+				.sort((a, b) => (a.rating.average < b.rating.average ? 1 : -1))
+				.slice(0, 10);
 		},
 	},
 };
