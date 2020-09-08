@@ -5,7 +5,7 @@
 	>
 		<div class="container mx-auto px-4 py-16">
 			<button
-				class="p-2 border border-gray-500 text-gray-500 rounded-full shadow-md hover:border-gray-100 hover:text-gray-100"
+				class="p-2 border border-gray-500 text-gray-500 rounded-full shadow-md hover:border-gray-100 hover:text-gray-100 back-button"
 				@click="$router.go(-1)"
 			>
 				<icon name="back" />

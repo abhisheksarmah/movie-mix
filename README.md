@@ -72,6 +72,12 @@ yarn test:unit
 yarn lint
 ```
 
+### Run E2E tests
+
+```
+yarn cypress:open
+```
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
