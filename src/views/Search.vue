@@ -21,7 +21,7 @@
 				</span>
 			</div>
 			<div
-				class="z-50 absolute bg-gray-800 rounded w-64 mt-4 text-sm"
+				class="z-50 absolute bg-gray-800 rounded w-64 mt-4 text-sm search-list-container"
 				v-if="searchQuery.length >= 3 && isOpen"
 				v-closable="{ exclude: ['search'], handler: 'onClose' }"
 			>

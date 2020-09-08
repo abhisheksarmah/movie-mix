@@ -17,7 +17,7 @@
           name: 'ShowDetails',
           params: { id: show.id },
         }"
-				class="text-lg mt-2 hover:text-gray-300"
+				class="text-lg mt-2 hover:text-gray-300 show-name"
 			>{{ show.name }}
 			</router-link>
 			<div class="flex items-center text-gray-400 text-sm mt-1">
