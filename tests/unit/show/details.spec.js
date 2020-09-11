@@ -14,9 +14,11 @@ import {
     showImages,
     showFormattedImageData
 } from '../testing-data'
+import VueContentPlaceholders from 'vue-content-placeholders'
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
+localVue.use(VueContentPlaceholders);
 
 describe("ShowDetails.vue", () => {
     const router = new VueRouter({

@@ -13,8 +13,7 @@ describe('ShowImage.vue', () => {
         },
         stubs: ['router-link']
     })
-    it('renders image', () => {
-        expect(wrapper.find('.show-images').exists()).toBe(true)
-        expect(wrapper.find('.show-images').html()).toBe(`<img src="${image.url}" alt="${image.id}" class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-images w-full">`)
+    it('image url property available and correct', () => {
+        expect(wrapper.vm.image.url).toStrictEqual('http://static.tvmaze.com/uploads/images/original_untouched/1/4185.jpg')
     })
 })

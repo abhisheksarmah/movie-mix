@@ -4,23 +4,9 @@
 			:href="cast.character.url"
 			target="_blank"
 		>
-			<template v-if="cast.character.image">
-				<img
-					:src="cast.character.image.medium || cast.character.image.original"
-					:alt="cast.character.name"
-					class="hover:opacity-75 text-sm transition ease-in-out duration-150 cast-character-image w-full"
-				/>
-			</template>
-			<template v-else-if="cast.person.image">
-				<img
-					:src="cast.person.image.medium || cast.person.image.original"
-					:alt="cast.person.name"
-					class="hover:opacity-75 text-sm transition ease-in-out duration-150 cast-character-image w-full"
-				/>
-			</template>
-			<template v-else>
-				<div class="bg-gray-800 h-80 hover:opacity-75 text-sm transition ease-in-out duration-150"></div>
-			</template>
+			<div class="h-80">
+				<card-image :image-url="castImage" />
+			</div>
 		</a>
 		<div class="mt-2">
 			<a
@@ -40,8 +26,30 @@
 </template>
 
 <script>
+import CardImage from "@/components/Image";
+
 export default {
 	name: "ShowCasts",
 	props: ["cast"],
+	components: {
+		CardImage,
+	},
+	computed: {
+		castImage() {
+			if (this.cast.character.image) {
+				return (
+					this.cast.character.image.medium ||
+					this.cast.character.image.original
+				);
+			}
+			if (this.cast.person.image) {
+				return (
+					this.cast.person.image.medium ||
+					this.cast.person.image.original
+				);
+			}
+			return null;
+		},
+	},
 };
 </script> 
