@@ -109,8 +109,7 @@ export default {
 		},
 	},
 	methods: {
-		keyDown: function (event) {
-			console.log(event);
+		keyDown: function (event) { 
 			if (event.keyCode == 191) {
 				event.preventDefault();
 				this.$refs.search.focus();
