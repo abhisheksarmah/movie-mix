@@ -4,17 +4,20 @@
 			:href="image.url"
 			target="_blank"
 		>
-			<img
-				:src="image.url"
-				:alt="image.id"
-				class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-images w-full"
-			/>
+			<div class="h-80">
+				<card-image :image-url="image.url" />
+			</div>
 		</a>
 	</div>
 </template>
 
 <script>
+import CardImage from "@/components/Image";
+
 export default {
 	props: ["image"],
+	components: {
+		CardImage,
+	},
 };
 </script> 

@@ -4,12 +4,9 @@
         name: 'ShowDetails',
         params: { id: show.id },
       }">
-			<img
-				v-if="show.image"
-				:src="show.image.medium || show.image.original"
-				:alt="show.name"
-				class="hover:opacity-75 text-sm transition ease-in-out duration-150 show-image w-full"
-			/>
+			<div class="h-80">
+				<card-image :image-url="show.image.medium || show.image.original" />
+			</div>
 		</router-link>
 		<div class="mt-2">
 			<router-link
@@ -37,11 +34,13 @@
 
 <script>
 import Icon from "@/components/Icon";
+import CardImage from "@/components/Image";
 
 export default {
 	props: ["show"],
 	components: {
 		Icon,
+		CardImage,
 	},
 };
 </script> 

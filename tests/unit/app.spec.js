@@ -4,14 +4,22 @@ import {
 } from "@vue/test-utils";
 import App from "@/App.vue";
 import VueRouter from "vue-router";
+import {
+    routes
+} from "@/router/index.js";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
 
 describe("App.vue", () => {
     let wrapper;
+    const router = new VueRouter({
+        routes,
+    });
+
     wrapper = shallowMount(App, {
-        localVue
+        localVue,
+        router,
     });
 
     it("display Movie Mix", () => {

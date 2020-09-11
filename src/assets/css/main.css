@@ -3,35 +3,3 @@
 @tailwind components;
 
 @tailwind utilities;
-
-.glide__bullet {
-    width: 10px;
-    height: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    margin-right: 8px;
-    border-radius: 50%;
-}
-
-.glide__bullet--active {
-    background: rgba(255, 255, 255, 0.8);
-}
-
-.glide__bullets {
-    position: absolute;
-    bottom: 14px;
-    right: 14px;
-}
-
-.glide__slide {
-    opacity: 0.75;
-    transition: all 0.3s;
-}
-
-.glide__slide:hover {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.glide__slides {
-    padding: 10px 0 !important;
-}

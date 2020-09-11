@@ -21,8 +21,17 @@
 				</span>
 			</div>
 			<div
+				class="absolute top-0 right-0"
+				v-if="isCalculating"
+			>
+				<icon
+					name="spinner"
+					class="mt-3 mr-2 h-4 w-4"
+				/>
+			</div>
+			<div
 				class="z-50 absolute bg-gray-800 rounded w-64 mt-4 text-sm search-list-container"
-				v-if="searchQuery.length >= 3 && isOpen"
+				v-if="searchQuery.length >= 3 && isOpen && !isCalculating && !searchQueryIsDirty"
 				v-closable="{ exclude: ['search'], handler: 'onClose' }"
 			>
 				<ul
@@ -33,38 +42,35 @@
 						<li
 							:key="show.id"
 							class="border-b border-gray-700"
-							@keydown.tab.exact="
-                index + 1 == shows.length ? (isOpen = false) : ''
-              "
+							@keydown.tab.exact="index + 1 == shows.length ? (isOpen = false) : ''"
 						>
 							<router-link
 								:to="{
-                  name: 'ShowDetails',
-                  params: { id: show.id },
-                }"
+								name: 'ShowDetails',
+								params: { id: show.id },
+								}"
 								class="hover:bg-gray-700 p-3 flex items-center"
 							>
-								<img
-									:src="show.image.medium || show.image.original"
-									:alt="show.name"
-									v-if="show.image"
-									class="w-10"
-								/>
-								<div
-									v-else
-									class="w-10 h-12 bg-gray-700"
-								></div>
-								<span class="ml-4">{{ show.name }}</span>
+								<div class="w-1/6 h-12 flex-shrink-0 bg-gray-700">
+									<card-image
+										:image-url="show.image.medium || show.image.original"
+										v-if="show.image"
+									/>
+								</div>
+								<span class="ml-4 truncate">{{ show.name }}</span>
 							</router-link>
 						</li>
 					</template>
 				</ul>
 				<div
-					v-else-if="shows.length <= 0 && !isCalculating && !searchQueryIsDirty"
+					v-else
 					class="p-3"
 				>
 					No results for "{{ searchQuery }}"
 				</div>
+				<!-- <div v-else-if="isCalculating && searchQueryIsDirty">
+					asdasdas
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -74,11 +80,13 @@
 import Icon from "@/components/Icon";
 import { searchShows } from "../api";
 import { debounce } from "lodash";
+import CardImage from "@/components/Image";
 
 export default {
 	name: "Search",
 	components: {
 		Icon,
+		CardImage,
 	},
 	data() {
 		return {
@@ -90,13 +98,7 @@ export default {
 		};
 	},
 	created() {
-		var vm = this;
-		window.addEventListener("keydown", function (event) {
-			if (event.keyCode == 191) {
-				event.preventDefault();
-				vm.$refs.search.focus();
-			}
-		});
+		window.addEventListener("keydown", this.keyDown);
 	},
 	watch: {
 		searchQuery(newValue) {
@@ -107,6 +109,13 @@ export default {
 		},
 	},
 	methods: {
+		keyDown: function (event) {
+			console.log(event);
+			if (event.keyCode == 191) {
+				event.preventDefault();
+				this.$refs.search.focus();
+			}
+		},
 		searchData: debounce(function () {
 			this.isCalculating = true;
 			searchShows(this.searchQuery).then(({ data }) => {

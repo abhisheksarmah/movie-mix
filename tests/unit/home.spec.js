@@ -1,5 +1,6 @@
 import {
-  shallowMount
+  shallowMount,
+  createLocalVue
 } from "@vue/test-utils";
 import moxios from "moxios";
 import Home from "@/views/Home.vue";
@@ -9,6 +10,10 @@ import {
   homeShowsByGenres,
   sortedHomeShows,
 } from './testing-data'
+import VueContentPlaceholders from 'vue-content-placeholders'
+
+const localVue = createLocalVue();
+localVue.use(VueContentPlaceholders);
 
 describe("Home.vue", () => {
   let wrapper;
@@ -18,6 +23,7 @@ describe("Home.vue", () => {
     moxios.install();
 
     wrapper = shallowMount(Home, {
+      localVue,
       stubs: ["router-link"],
     });
   });
