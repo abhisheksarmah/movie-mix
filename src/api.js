@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URL = 'https://api.tvmaze.com/'
+const URL = process.env.VUE_APP_API_URL
 
 export function getAllShows() {
     return axios.get(URL + 'shows');
