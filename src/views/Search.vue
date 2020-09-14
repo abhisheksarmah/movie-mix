@@ -98,7 +98,7 @@ export default {
 		};
 	},
 	created() {
-		window.addEventListener("keydown", this.keyDown);
+		window.addEventListener("keydown", this.keyDownFocus);
 	},
 	watch: {
 		searchQuery(newValue) {
@@ -109,7 +109,7 @@ export default {
 		},
 	},
 	methods: {
-		keyDown: function (event) { 
+		keyDownFocus(event) {
 			if (event.keyCode == 191) {
 				event.preventDefault();
 				this.$refs.search.focus();
