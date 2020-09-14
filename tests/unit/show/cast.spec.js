@@ -5,15 +5,18 @@ import ShowCast from "@/views/show/Cast.vue"
 import {
     showCast
 } from '../testing-data'
-import Vue from 'vue';
+import Vue from 'vue'
 
 describe('ShowCast.vue', () => {
-    const cast = showCast
-    const wrapper = shallowMount(ShowCast, {
+    let cast
+    let wrapper
+    cast = Object.assign({}, showCast)
+    wrapper = shallowMount(ShowCast, {
         propsData: {
             cast
         },
     })
+
     it('display cast person name', () => {
         expect(wrapper.find('.cast-person-name').exists()).toBe(true)
         expect(wrapper.find('.cast-person-name').text()).toBe(cast.person.name)
@@ -30,9 +33,18 @@ describe('ShowCast.vue', () => {
         expect(wrapper.vm.castImage).toStrictEqual(cast.character.image.medium || cast.character.image.original);
     })
 
+    it("returns character medium image if available else character original", () => {
+        cast.character.image.medium = null
+        const wrapper = shallowMount(ShowCast, {
+            propsData: {
+                cast
+            },
+        })
+        expect(wrapper.vm.castImage).toStrictEqual(cast.character.image.original);
+    })
+
     it('returns person image when character image not available', () => {
-        const cast = showCast
-        delete cast.character.image
+        cast.character.image = null
         const wrapper = shallowMount(ShowCast, {
             propsData: {
                 cast
@@ -41,10 +53,19 @@ describe('ShowCast.vue', () => {
         expect(wrapper.vm.castImage).toStrictEqual(cast.person.image.medium || cast.person.image.original);
     })
 
-    it('returns null when no cast image available', () => {
-        const cast = showCast
-        delete cast.character.image
-        delete cast.person.image
+    it("returns person medium image if available else person original", () => {
+        cast.person.image.medium = null
+        const wrapper = shallowMount(ShowCast, {
+            propsData: {
+                cast
+            },
+        })
+        expect(wrapper.vm.castImage).toStrictEqual(cast.person.image.original);
+    })
+
+    it('returns null when no cast image available', async () => {
+        cast.character.image = null
+        cast.person.image = null
         const wrapper = shallowMount(ShowCast, {
             propsData: {
                 cast

@@ -41,6 +41,26 @@ export const homeShows = [{
     }
 ]
 
+export const homeShowsInRandom = [{
+    id: 3,
+    genres: ["Thriller", "Action"],
+    rating: {
+        average: null
+    }
+}, {
+    id: 2,
+    genres: ["Thriller", "Action"],
+    rating: {
+        average: 8.1
+    }
+}, {
+    id: 1,
+    genres: ["Action", "Drama"],
+    rating: {
+        average: 7
+    }
+}]
+
 export const showGenres = [
     "Action",
     "Drama",

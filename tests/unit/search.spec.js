@@ -1,5 +1,6 @@
 import {
     shallowMount,
+    mount,
     createLocalVue
 } from "@vue/test-utils";
 import moxios from "moxios";
@@ -21,7 +22,7 @@ describe("Search.vue", () => {
         // import and pass your custom axios instance to this method
         moxios.install();
 
-        wrapper = shallowMount(Search, {
+        wrapper = mount(Search, {
             localVue,
             stubs: ["router-link"],
         });
@@ -32,11 +33,58 @@ describe("Search.vue", () => {
         moxios.uninstall();
     });
 
-    it("getting a show list when inputed search term", (done) => {
+    it("has a search input", () => {
         let searchInput = wrapper.find('input[type="text"]');
         expect(searchInput.exists()).toBe(true);
+    })
+
+    it("input data is correct", () => {
+        let searchInput = wrapper.find('input[type="text"]');
         searchInput.setValue("parasite");
         expect(wrapper.vm.searchQuery).toBe("parasite");
+    })
+
+    it("when focused, search list reopens", () => {
+        wrapper.setData({
+            isOpen: false
+        })
+        expect(wrapper.vm.isOpen).toBe(false);
+        wrapper.vm.$refs.search.focus()
+        expect(wrapper.vm.isOpen).toBe(true);
+    })
+
+    it("pressing /, focuses search input", async () => {
+        const mockMethod = jest.spyOn(Search.methods, 'keyDownFocus')
+        const div = document.createElement('div')
+        document.body.appendChild(div)
+        let wrapper = await mount(Search, {
+            attachTo: div
+        })
+        let searchInput = wrapper.find('input[type="text"]');
+
+        wrapper.trigger('keydown', {
+            'keyCode': 190
+        })
+        expect(mockMethod).toHaveBeenCalled()
+        expect(searchInput.element).not.toBe(document.activeElement);
+
+        wrapper.trigger('keydown', {
+            'keyCode': 191
+        })
+        expect(mockMethod).toHaveBeenCalled()
+        expect(searchInput.element).toBe(document.activeElement);
+    })
+
+    it("do not call search api when search term is not more than equal 3", () => {
+        const mockMethod = jest.spyOn(Search.methods, 'searchData')
+        let wrapper = mount(Search)
+        wrapper.find('input[type="text"]').setValue("pa");
+        expect(mockMethod).not.toHaveBeenCalled()
+    })
+
+    it("getting a show list when inputed search term", (done) => {
+        let searchInput = wrapper.find('input[type="text"]');
+        searchInput.setValue("parasite");
 
         moxios.wait(function () {
             let request = moxios.requests.mostRecent();
@@ -79,6 +127,12 @@ describe("Search.vue", () => {
                 })
         }, 600);
     });
+
+    it("on close set open to false", () => {
+        expect(wrapper.vm.isOpen).toBe(true);
+        wrapper.vm.onClose()
+        expect(wrapper.vm.isOpen).toBe(false);
+    })
 
     let see = (text, selector) => {
         let wrap = selector ? wrapper.find(selector) : wrapper;

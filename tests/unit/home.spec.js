@@ -6,6 +6,7 @@ import moxios from "moxios";
 import Home from "@/views/Home.vue";
 import {
   homeShows,
+  homeShowsInRandom,
   showGenres,
   homeShowsByGenres,
   sortedHomeShows,
@@ -77,6 +78,10 @@ describe("Home.vue", () => {
   it('return mostly rated shows based on ratings', () => {
     let data = homeShows
     let sorted = wrapper.vm.mostlyRatedShows(data)
+    expect(sorted).toStrictEqual(sortedHomeShows)
+
+    let dataInRandom = homeShowsInRandom
+    sorted = wrapper.vm.mostlyRatedShows(dataInRandom)
     expect(sorted).toStrictEqual(sortedHomeShows)
   })
 });
